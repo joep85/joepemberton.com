@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Joe Pemberton's r&eacute;sum&eacute;</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+header, section, footer, aside, nav, main, article, figure { 
+  display: block; 
+}
+body {
+  font-size: 90%;
+  font-family: sans-serif;
+}
+body > header h1 {
+  text-align: center;
+  font-size: 100%;
+  margin: 0;
+  line-height: 2em;
+  height: 2em;
+  
+}
+body > header address {
+  float: left;
+  margin-top: -2em;
+  font-size: 90%;
+}
+body > header .contact  {
+  float: right;
+  clear: right;
+  margin-top: -2em;
+  text-align: right;
+}
+section#skills {
+  clear: both;
+  padding-top: 1px;
+}
+footer {
+  text-align: center;
+}
+h2 {
+  border-bottom: 1px solid #000;
+  font-size: 100%;
+}
+#employment article header span {
+  float: left;
+  font-weight: bold;
+}
+#employment article header span.title {
+  width: 33%;
+}
+#employment article header span.company {
+  text-align: center;
+  width: 33%;
+}
+#employment article header span.date {
+  text-align: right;
+  width: 33%;
+}
+#employment article ul {
+  clear: both;
+}
+#validate:before {
+  content: " - ";
+}
+@media print {
+    body {
+        font-size: 75%;
+    }
+    #validate,
+    #validate:before {
+      display: none;
+    }
+}
+@media screen {
+    body {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (max-width: 480px) {
+    body > header address,
+    body > header .contact  {
+        float: none;
+        margin-top: 0;
+        text-align: center;
+    }
+    #employment {
+        width: 100%;
+    }
+    #employment article header span.title,
+    #employment article header span.company,
+    #employment article header span.date {
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    ul {
+        padding-left: 2em;
+    }
+    article header {
+        padding-left: .5em;
+    }
+    section h2 {
+        padding-left: .5em;
+    }
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Joe Pemberton</h1>
+<address>
+910 17th Ave E
+<br>
+Seattle, WA 98112
+</address>
+<div class="contact">
+<a href="tel:+12066617996">(206) 661-7996</a>
+<br>
+<a href="mailto:joe.pemberton@gmail.com">joe.pemberton@gmail.com</a>
+</div>
+</header>
+<section id="skills">
+<h2>Skills</h2>
+<ul>
+  <li>Languages: Java, JavaScript, HTML5/CSS, Perl, Python, BASH, PHP, SQL, Z80 Assembly</li>
+  <li>OS: Ubuntu, Redhat, MacOS, Windows</li>
+  <li>Cloud: Amazon S3, Amazon EC2, Amazon SQS</li>
+  <li>Misc: Apache2, Tomcat, node.js, Django, SVN, Git, MySQL, Spring, Freemarker</li> 
+</ul>
+</section>
+<section id="employment">
+<h2>Employment</h2>
+<article>
+<header>
+<span class="title">Software Development Engineer II</span>
+<span class="company">Amazon.com, Inc. (IMDb)</span>
+<span class="date">May 2010 - November 2013</span>
+</header>
+<ul>
+  <li>Architected a horizontally-scalable, distributed service using Java, S3, and EC2 to replace legacy perl code. Service clients include <a href="http://www.imdb.com/">imdb.com</a>, <a href="http://m.imdb.com/">m.imdb.com</a>, and all IMDb mobile applications.</li>
+  <li>Substantially reduced advertising widget client-side latency by driving technical and organizational changes as team's "latency czar".</li>
+  <li>Developed internal web tools using Java, Perl, AWS services, JavaScript and HTML5.</li>
+  <li>Worked with product managers to develop new advertising products for consumer/mobile websites and android/iOS apps.
+  <li>Moved the majority of team's codebase to continuous integration and deployment.</li>
+  <li>Built web metrics to measure changes in latency/user behavior/etc in order to inform development decisions.</li>
+</ul>
+</article>
+<article>
+<header>
+<span class="title">Senior Java Developer</span>
+<span class="company">InstantService.com</span>
+<span class="date">May 2008 - October 2009</span>
+</header>
+<ul>
+  <li>Built a multithreaded server using Java to stream Agent availability data to IEX TotalView servers.</li>
+  <li>Built a 2-way integration in Java to seamlessly merge agent availability states between InstantService agent clients and Avaya telephone switches in real time.</li>
+</ul>
+</article>
+<article>
+<header>
+<span class="title">Java Technical Architect</span>
+<span class="company">AT&amp;T Inc.</span>
+<span class="date">November 2007 - May 2008</span>
+</header>
+<ul>
+  <li>Refactored and extended an internal Java web application used to aggregate and report on discount data for 100,000+ corporate clients.</li>
+</ul>
+</article>
+<article>
+<header>
+<span class="title">Java Developer</span>
+<span class="company">Seek Incorporated</span>
+<span class="date">January 2006 - November 2007</span>
+</header>
+<ul>
+  <li>Founded SeekTheRush.com, a reservation and e-commerce portal for Pacific Northwest adventure outfitters. Responsible for all software development and infrastructure administration.</li>
+  <li>Submitted patches to fix bugs in Apache Struts 2 and Apache Tiles 2.</li>
+</ul>
+</article>
+<article>
+<header>
+<span class="title">Engineering Intern</span>
+<span class="company">Google Inc</span>
+<span class="date">Summer 2006</span>
+</header>
+<ul>
+  <li>Implemented a WAN simulator using Netfilter/Iptables, BASH, and PHP for testing network applications over bad connections.</li>
+  <li>Developed an automated system to monitor voice quality over POTS lines.</li>
+</ul>
+</article>
+<article>
+<header>
+<span class="title">Java Developer</span>
+<span class="company">EZShow LLC</span>
+<span class="date">January 2006 - June 2006</span>
+</header>
+<ul>
+  <li>Improved the security, reliability and feature set of e-commerce J2EE web applications.</li>
+</ul>
+</article>
+<article>
+<header>
+<span class="title">Engineering Intern</span>
+<span class="company">Google Inc</span>
+<span class="date">Summer 2005</span>
+</header>
+<ul>
+ <li>Assisted in an emergency expansion of the billing databases for Google Adwords by migrating and verifying the integrity of hundreds of thousands of customers' data using Python/SQL/Bash.</li>
+ <li>Developed a Python framework to efficiently copy database entities between MySQL database instances based on foreign key relationships.</li>
+</ul>
+</article>
+<article>
+<header>
+<span class="title">Test Engineer</span>
+<span class="company">BEA Systems, Inc.</span>
+<span class="date">May 2003 - June 2005</span>
+</header>
+<ul>
+  <li>Developed automated test infrastructure using Apache Ant and Java.</li>
+</ul>
+</article>
+</section>
+<section id="additional">
+<h2>Additional Experience</h2>
+<ul>
+  <li>Obtained CCNA (Cisco Certified Network Associate) certification in June of 2002.</li>
+  <li>Helped build a 35ft tall playable rubik's cube. See <a href="http://www.miketyka.com/grooviks-cube/">miketyka.com/grooviks-cube</a>
+  <li>Wrote highly-rated video games in Z80 Assembly. See <a href="http://www.ticalc.org/archives/files/authors/39/3971.html">ticalc.org/archives/files/authors/39/3971.html</a></li>
+</ul>
+</section>
+<footer>
+  <span class="alt">This resume is available at <a href="http://joepemberton.com/resume/">joepemberton.com/resume</a></span>
+  <span id="validate"><a href="http://validator.w3.org/check?uri=http://joepemberton.com/resume/">validate html5</a></span>
+</footer>
+</body>
+</html>

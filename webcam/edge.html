@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>webcam</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="colorspace.js"></script>
+<script src="edge.js"></script>
+<style>
+body,html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: monospace;
+}
+#video, #canvas {
+  display: none;
+}
+#out {
+  float: left;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+body.started #out {
+  display: block;
+}
+#controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  background-color: #000;
+  padding: 5px;
+  color: #fff;
+}
+body.started #controls {
+  display: block;
+}
+#controls span {
+  margin-right: 10px;
+  cursor: pointer;
+}
+#controls span.active {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<video id="video"></video>
+<canvas id="canvas"></canvas>
+<canvas id="out"></canvas>
+<div id="startmsg">Please click "allow" to enable the use of your webcam.</div>
+<div id="controls"></div>
+</body>
+</html>
