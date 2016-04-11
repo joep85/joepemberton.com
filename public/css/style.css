@@ -1,0 +1,49 @@
+body {
+  padding: 20px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#menu {
+    border-right: 1px solid #ddd;
+}
+#menu ul, #menu li{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+#display {
+  font-family: monospace;
+  white-space: pre;
+  border: 1px solid #000;
+  float: left;
+  letter-spacing: 5px;
+}
+#display span {
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  display: inline-block;
+}
+#display .wall {
+  background-color: #000;
+  color: #fff;
+}
+#display .char {
+}
+#display .path {
+  color: white;
+  background-color: green;
+}
+#display .p {
+  color: #888;
+}
+#display .f {
+  color: #888;
+  background-color: #ccc;
+}
+
+a {
+  color: #00B7FF;
+}

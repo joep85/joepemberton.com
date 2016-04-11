@@ -2,6 +2,20 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/lib/bootstrap.css')
+    link(rel='stylesheet', href='/css/lib/bootstrap-responsive.css')
+    base(href='/')
+  body(ng-app='joepemberton.com')
+    h1= "joepemberton.com"
+    div(class="row")
+      div(ng-controller='MenuController', ng-include='"/partials/menu.html"', class='span2')
+      div(ng-view='', class='span10')
+        block content
+    script(type='text/javascript', src='/js/lib/jquery-1.12.3.min.js')
+    script(type='text/javascript', src='/js/lib/bootstrap.js')
+    script(type='text/javascript', src='/js/lib/angular.min.js')
+    script(type='text/javascript', src='/js/lib/angular-route.min.js')
+    script(type='text/javascript', src='/js/lib/angular-resource.js')
+    script(type='text/javascript', src='/js/app.js')
+    script(type='text/javascript', src='/js/demo/a-star.js')

@@ -1,0 +1,33 @@
+<div ng-controller="AStarController" class="demo astar">
+
+<button ng-click="tick()">tick</button>
+<button ng-click="run()">run</button>
+<button ng-click="stop()">stop</button>
+iteration: <span ng-bind="iteration"></span>
+
+<div class="row">
+<textarea style="font-family: monospace; height: 450px;" class="span5">
+                         S                        
+                                                  
+  #                                               
+  #                                               
+  #                                               
+  #       #################################       
+  #       #################################       
+  #       ##                             ##       
+  #       ##                      E      ##       
+  #       ##                             ##       
+  #     ####                             ##       
+  #       ##                             ##       
+  #       ##            ############     ##       
+  #       ##            ############     ##       
+ ###########                             ##       
+  #             #######                  ##       
+  #                   #                  ##       
+  #                   #          ##########       
+  ##                  ##         #                
+   #                   ###########                
+   #################   #                          
+                       #                          </textarea>
+<pre ng-bind="display" class="span5"></pre>
+</div>
