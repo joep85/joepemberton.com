@@ -4,7 +4,7 @@
 
     var joe = angular.module('joepemberton.com');
 
-    var FIXED_PATH = "\u25A1", POTENTIAL_PATH = ".";
+    var FIXED_PATH = "\u25FD", POTENTIAL_PATH = "\u25AA";
     var PATH = "\u25A0";
 
     function assert(condition, message) {
@@ -157,6 +157,19 @@
                 },
                 index : function() {
                     return this.y * mapWidth + this.x;
+                },
+                neighbors: function() {
+                    return [
+                        new Coord(this.x-1, this.y-1),
+                        new Coord(this.x,   this.y-1),
+                        new Coord(this.x+1, this.y-1),
+                        new Coord(this.x-1, this.y  ),
+                        //[x, y], Don't add the current space!
+                        new Coord(this.x+1, this.y  ),
+                        new Coord(this.x-1, this.y+1),
+                        new Coord(this.x,   this.y+1),
+                        new Coord(this.x+1, this.y+1)
+                    ]
                 }
             };
 
@@ -202,17 +215,7 @@
                 $scope.display = s.join('\n');
             };
             var open_neighbors = function (coord) {
-                return [
-                        new Coord(coord.x-1, coord.y-1),
-                        new Coord(coord.x,   coord.y-1),
-                        new Coord(coord.x+1, coord.y-1),
-                        new Coord(coord.x-1, coord.y  ),
-                        //[x, y], Don't add the current space!
-                        new Coord(coord.x+1, coord.y  ),
-                        new Coord(coord.x-1, coord.y+1),
-                        new Coord(coord.x,   coord.y+1),
-                        new Coord(coord.x+1, coord.y+1)
-                    ].filter(function (coord) {
+                return coord.neighbors().filter(function (coord) {
                         // filter out the coords that are off the edge of the map
                         return coord.x >= 0 && coord.x < mapWidth &&
                                coord.y >= 0 && coord.y < mapHeight;
@@ -225,27 +228,5 @@
                         return ch === ' ' || ch === 'E';
                     });
             }
-
-            /*
-            $(function () {
-                var $display = $('#display');
-                $('#tick').click(function (evnt) {
-                    evnt.preventDefault();
-                    window.map.tick();
-                    $display.html(window.map.draw());
-                });
-                $('#run').click(function (evnt) {
-                    var interval = setInterval(function () {
-                        window.map.tick();
-                        $display.html(window.map.draw());
-                        if (window.map.finished) {
-                            clearInterval(interval);
-                        }
-                    }, 5);
-                    evnt.preventDefault();
-                });
-                $display.html(window.map.draw());
-            });
-            */
     }]);
 })();

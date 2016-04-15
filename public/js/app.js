@@ -27,7 +27,7 @@
             .otherwise({
                 redirectTo: '/'
             });
-            $locationProvider.html5Mode(true);
+            //$locationProvider.html5Mode(true);
         }]);
     
 
@@ -47,7 +47,7 @@
         '$scope',
         function($scope) {
             var link = function(name, href) {
-                return { 'name' : name, 'href' : href };
+                return { 'name' : name, 'href' : '#' + href };
             };
             var section = function(name) {
                 console.log(arguments);
