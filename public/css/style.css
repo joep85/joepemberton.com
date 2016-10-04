@@ -12,6 +12,16 @@ body {
     padding: 0;
 }
 
+@media print {
+    #menu {
+        display: none;
+    }
+    
+    body {
+        font-size: 12px;
+    }
+}
+
 
 #display {
   font-family: monospace;
