@@ -43,7 +43,7 @@
     Coord.prototype = {
         distance : function (c) {
             // Manhattan distance
-            return (this.x-c.x) + (this.y-c.y);
+            return Math.abs(this.x-c.x) + Math.abs(this.y-c.y);
         },
         neighbors: function() {
             return [
@@ -229,10 +229,11 @@
                 var tile = queue.pop();
                 tile.draw();
                 var cost = costs[tile.hash] + 1;
-                tile.connectedNeighbors().forEach(function(n) {
-                    if (n.hash in paths) {
-                        return;
-                    }
+                tile.connectedNeighbors()
+                .filter(function(n) {
+                    return !(n.hash in paths);
+                })
+                .forEach(function(n) {
                     paths[n.hash] = tile;
                     costs[n.hash] = cost;
                     queue.add(cost + n.coord.distance(end), n);
