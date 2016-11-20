@@ -28,13 +28,6 @@
             }
         }
     };
-    function PathItem(prev, coord, goal_coord) {
-        this.prev = prev;
-        this.coord = coord;
-        var pathCost = prev ? prev.cost + 1 : 0;
-        this.cost = pathCost + coord.distance(goal_coord);
-    }
-
 
     function Coord(x, y) {
         this.x = x;
@@ -215,24 +208,17 @@
             var end = this.end;
             var queue = new PriorityQueue();
             var paths = {};
-            var costs = {};
             this.ctx.fillStyle = 'blue';
             paths[start.hash] = null;
-            costs[start.hash] = 0;
-
             queue.add(0, start);
             while (!(end.hash in paths)) {
                 var tile = queue.pop();
                 tile.draw();
-                var cost = costs[tile.hash] + 1;
-                tile.connectedNeighbors()
-                .filter(function(n) {
+                tile.connectedNeighbors().filter(function(n) {
                     return !(n.hash in paths);
-                })
-                .forEach(function(n) {
+                }).forEach(function(n) {
                     paths[n.hash] = tile;
-                    costs[n.hash] = cost;
-                    queue.add(cost + n.coord.distance(end), n);
+                    queue.add(n.coord.distance(end), n);
                 });
             }
 
