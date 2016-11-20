@@ -114,20 +114,20 @@
         },
         draw: function() {
             var ctx = this.maze.ctx;
-            var x = this.coord.x * Tile.SIZE;
-            var y = this.coord.y * Tile.SIZE;
-            for (var mask in Tile.MASK_RECT) {
+            var x = this.coord.x * this.maze.tileSize;
+            var y = this.coord.y * this.maze.tileSize;
+            for (var mask in this.maze.maskRect) {
                 if (this.value & mask) {
-                    var rect = Tile.MASK_RECT[mask];
+                    var rect = this.maze.maskRect[mask];
                     ctx.fillRect(x + rect[0], y + rect[1], rect[2], rect[3]);
                 }
             }
         },
         outline: function() {
             var ctx = this.maze.ctx;
-            var x = this.coord.x * Tile.SIZE;
-            var y = this.coord.y * Tile.SIZE;
-            ctx.strokeRect(x, y, Tile.SIZE, Tile.SIZE);
+            var x = this.coord.x * this.maze.tileSize;
+            var y = this.coord.y * this.maze.tileSize;
+            ctx.strokeRect(x, y, this.maze.tileSize, this.maze.tileSize);
         }
     };
 
@@ -135,31 +135,20 @@
     Tile.RIGHT   = 1 << 1;
     Tile.LEFT    = 1 << 2;
     Tile.DOWN    = 1 << 3;
-    function configTile(size, stroke) {
-        Tile.SIZE    = size;
-        Tile.MID     = Tile.SIZE / 2;
-        Tile.STROKE  = stroke;
-        Tile.STROKE_OFFSET = (Tile.STROKE - 1) / 2;
-        Tile.MASK_RECT = {};
-        Tile.MASK_RECT[Tile.UP]     = [Tile.MID - Tile.STROKE_OFFSET, 0, Tile.STROKE, Tile.MID + Tile.STROKE_OFFSET];
-        Tile.MASK_RECT[Tile.RIGHT]  = [Tile.MID, Tile.MID - Tile.STROKE_OFFSET, Tile.MID + Tile.STROKE_OFFSET, Tile.STROKE];
-        Tile.MASK_RECT[Tile.DOWN]   = [Tile.MID - Tile.STROKE_OFFSET, Tile.MID, Tile.STROKE, Tile.MID + Tile.STROKE_OFFSET];
-        Tile.MASK_RECT[Tile.LEFT]   = [0, Tile.MID - Tile.STROKE_OFFSET, Tile.MID + Tile.STROKE_OFFSET, Tile.STROKE];
-    }
-    configTile(10, 5);
 
     function rand(limit) {
         return Math.floor(Math.random() * limit);
     }
 
-    function Maze(canvas) {
+    function Maze(canvas, tileSize, strokeSize) {
         this.canvas = canvas;
+        this.tileSize = tileSize;
         this.ctx = canvas.getContext("2d");
         this.ctx.fillStyle = "black";
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
         this.ctx.fillStyle = "white";
-        this.width = Math.floor(canvas.width / Tile.SIZE);
-        this.height = Math.floor(canvas.height / Tile.SIZE);
+        this.width = Math.floor(canvas.width / tileSize);
+        this.height = Math.floor(canvas.height / tileSize);
         this.openTiles = {};
         this.tiles = [];
         for (var y = 0; y < this.height; y++) {
@@ -170,6 +159,13 @@
         }
         var seed = this.getTile(rand(this.width), rand(this.height));
         this.openTiles[seed.hash] = seed;
+        var mid     = tileSize / 2;
+        var strokeOffset = (strokeSize - 1) / 2;
+        this.maskRect = {};
+        this.maskRect[Tile.UP]     = [mid - strokeOffset, 0, strokeSize, mid + strokeOffset];
+        this.maskRect[Tile.RIGHT]  = [mid, mid - strokeOffset, mid + strokeOffset, strokeSize];
+        this.maskRect[Tile.DOWN]   = [mid - strokeOffset, mid, strokeSize, mid + strokeOffset];
+        this.maskRect[Tile.LEFT]   = [0, mid - strokeOffset, mid + strokeOffset, strokeSize];
     }
     Maze.prototype = {
         index: function(coord) {
@@ -256,20 +252,20 @@
         function($scope, $element, $interval) {
             var canvas = $element.find('canvas')[0];
             var maze;
+            $scope.strokeSize = 5;
+            $scope.tileSize = 10;
             $scope.generate = function() {
-                maze = new Maze(canvas);
+                maze = new Maze(canvas, $scope.tileSize, $scope.strokeSize);
                 maze.fill();
+                window.maze = maze;
             };
             $scope.solve = function() {
                 maze.solve();
             };
-            $scope.strokeSize = 5;
-            $scope.tileSize = 10;
             $scope.updateSize = function() {
                 if ($scope.tileSize <= $scope.strokeSize) {
                     $scope.strokeSize = $scope.tileSize - 1;
                 }
-                configTile($scope.tileSize, $scope.strokeSize);
             };
             $scope.generate();
         }
