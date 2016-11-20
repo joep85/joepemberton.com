@@ -58,7 +58,8 @@
                     link('Home', '/'),
                     link('Resume', '/resume')),
                 section('Demos', 
-                    link('A* search', '/demo/a-star'))
+                    link('A* search', '/demo/a-star'),
+                    link('Maze Generator', '/demo/maze'))
                     //link('Photo mirror', '/demo/photo-mirror'))
             ];
         }]);

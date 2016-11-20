@@ -7,7 +7,6 @@ html
     link(rel='stylesheet', href='/css/lib/bootstrap-responsive.css')
     base(href='/')
   body(ng-app='joepemberton.com')
-    h1= "joepemberton.com"
     div(class="row")
       div(ng-controller='MenuController', ng-include='"/partials/menu.html"', class='span2')
       div(ng-view='', class='span10')
@@ -19,3 +18,4 @@ html
     script(type='text/javascript', src='/js/lib/angular-resource.js')
     script(type='text/javascript', src='/js/app.js')
     script(type='text/javascript', src='/js/demo/a-star.js')
+    script(type='text/javascript', src='/js/demo/maze.js')
