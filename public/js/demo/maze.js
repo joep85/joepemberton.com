@@ -136,6 +136,7 @@
     function Maze(canvas, tileSize, strokeSize) {
         this.canvas = canvas;
         this.tileSize = tileSize;
+        this.strokeSize = strokeSize;
         this.ctx = canvas.getContext("2d");
         this.ctx.fillStyle = "black";
         this.ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -238,20 +239,16 @@
         function($scope, $element, $interval) {
             var canvas = $element.find('canvas')[0];
             var maze;
-            $scope.strokeSize = 5;
             $scope.tileSize = 10;
             $scope.generate = function() {
-                maze = new Maze(canvas, $scope.tileSize, $scope.strokeSize);
+                var tileSize = parseInt($scope.tileSize);
+                var strokeSize = tileSize / 2;
+                maze = new Maze(canvas, tileSize, strokeSize % 2 == 0 ? strokeSize + 1 : strokeSize);
                 maze.fill();
                 window.maze = maze;
             };
             $scope.solve = function() {
                 maze.solve();
-            };
-            $scope.updateSize = function() {
-                if ($scope.tileSize <= $scope.strokeSize) {
-                    $scope.strokeSize = $scope.tileSize - 1;
-                }
             };
             $scope.generate();
         }

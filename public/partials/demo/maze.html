@@ -1,7 +1,6 @@
 <div ng-controller="MazeController" class="demo maze">
 
 Tile Size: <input type="range" min="4" max="20" step="2" ng-model="tileSize" ng-change="updateSize()"/> (<span ng-bind="tileSize"></span>)
-Stroke Size: <input type="range" min="1" max="19" step="2" ng-model="strokeSize" ng-change="updateSize()" /> (<span ng-bind="strokeSize"></span>)
 <button ng-click="generate()">Generate Maze</button>
 <button ng-click="solve()">Solve Maze</button>
 
