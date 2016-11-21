@@ -133,7 +133,8 @@
         return Math.floor(Math.random() * limit);
     }
 
-    function Maze(canvas, tileSize, strokeSize) {
+    function Maze($q, canvas, tileSize, strokeSize) {
+        this.$q = $q;
         this.canvas = canvas;
         this.tileSize = tileSize;
         this.strokeSize = strokeSize;
@@ -198,8 +199,23 @@
             while (Object.keys(this.openTiles).length > 0) { 
                 this.tick();
             }
-            this.start = this.getTile(0, rand(this.height)).set(Tile.LEFT);
-            this.end = this.getTile(this.width-1, rand(this.height)).set(Tile.RIGHT);
+            var self = this;
+            var makeExit = function() {
+                var map = [
+                    // left
+                    [0, rand(self.height), Tile.LEFT],
+                    // right
+                    [self.width-1, rand(self.height), Tile.RIGHT],
+                    // top
+                    [rand(self.width), 0, Tile.UP],
+                    //down
+                    [rand(self.width), self.height-1, Tile.DOWN]
+                ];
+                var item = map[rand(map.length)];
+                return self.getTile(item[0], item[1]).set(item[2]);
+            };
+            this.start = makeExit();
+            this.end = makeExit();
         },
         solve: function() {
             if (!this.start || !this.end) {
@@ -209,26 +225,38 @@
             var end = this.end;
             var queue = new PriorityQueue();
             var paths = {};
-            this.ctx.fillStyle = 'blue';
+            var deferred = this.$q.defer();
             paths[start.hash] = null;
             queue.add(0, start);
-            while (!(end.hash in paths)) {
+            var ctx = this.ctx;
+            var tick = function() {
                 var tile = queue.pop();
+                ctx.fillStyle = 'blue';
                 tile.draw();
                 tile.connectedNeighbors().filter(function(n) {
                     return !(n.hash in paths);
                 }).forEach(function(n) {
+                    ctx.fillStyle = 'green';
+                    n.draw();
                     paths[n.hash] = tile;
-                    queue.add(n.coord.distance(end), n);
+                    queue.add(n.coord.distance(end.coord), n);
                 });
-            }
+                if (end.hash in paths) {
+                    deferred.resolve();
+                } else {
+                    setTimeout(tick, 0);
+                }
+            };
+            tick();
 
-            this.ctx.fillStyle = 'red';
-            var tile = end;
-            while (tile) {
-                tile.draw();
-                tile = paths[tile.hash];
-            }
+            deferred.promise.then(function() {
+                ctx.fillStyle = 'red';
+                var tile = end;
+                while (tile) {
+                    tile.draw();
+                    tile = paths[tile.hash];
+                }
+            });
         }
     };
 
@@ -236,14 +264,15 @@
         '$scope',
         '$element',
         '$interval',
-        function($scope, $element, $interval) {
+        '$q',
+        function($scope, $element, $interval, $q) {
             var canvas = $element.find('canvas')[0];
             var maze;
             $scope.tileSize = 10;
             $scope.generate = function() {
                 var tileSize = parseInt($scope.tileSize);
                 var strokeSize = tileSize / 2;
-                maze = new Maze(canvas, tileSize, strokeSize % 2 == 0 ? strokeSize + 1 : strokeSize);
+                maze = new Maze($q, canvas, tileSize, strokeSize % 2 == 0 ? strokeSize + 1 : strokeSize);
                 maze.fill();
                 window.maze = maze;
             };
