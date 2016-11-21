@@ -35,9 +35,7 @@
     }
     Coord.prototype = {
         distance : function (c) {
-            // Manhattan distance
-            var dist = Math.abs(this.x-c.x) + Math.abs(this.y-c.y);
-            return dist * dist;
+            return  (this.x-c.x)*(this.x-c.x) + (this.y-c.y)*(this.y-c.y);
         },
         neighbors: function() {
             return [
