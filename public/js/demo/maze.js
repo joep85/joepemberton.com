@@ -3,6 +3,8 @@
     'use strict';
     var joe = angular.module('joepemberton.com');
 
+    var ANIMATION_STEP = 10;
+
     function PriorityQueue() {
         this.queue = [];
     }
@@ -229,17 +231,19 @@
             queue.add(0, start);
             var ctx = this.ctx;
             var tick = function() {
-                var tile = queue.pop();
-                ctx.fillStyle = 'blue';
-                tile.draw();
-                tile.connectedNeighbors().filter(function(n) {
-                    return !(n.hash in paths);
-                }).forEach(function(n) {
-                    ctx.fillStyle = 'green';
-                    n.draw();
-                    paths[n.hash] = tile;
-                    queue.add(n.coord.distance(end.coord), n);
-                });
+                for (var i = 0; i < ANIMATION_STEP && !(end.hash in paths); i++) {
+                    var tile = queue.pop();
+                    ctx.fillStyle = 'blue';
+                    tile.draw();
+                    tile.connectedNeighbors().filter(function(n) {
+                        return !(n.hash in paths);
+                    }).forEach(function(n) {
+                        ctx.fillStyle = 'green';
+                        n.draw();
+                        paths[n.hash] = tile;
+                        queue.add(n.coord.distance(end.coord), n);
+                    });
+                }
                 if (end.hash in paths) {
                     deferred.resolve();
                 } else {
