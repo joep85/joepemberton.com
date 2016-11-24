@@ -67,14 +67,7 @@
         set: function(direction) {
             this.value |= direction;
             this.draw();
-            this.maze.openTiles[this.hash] = this;
-            this.check();
             return this;
-        },
-        check: function() {
-            if (!this.isOpen()) {
-                delete this.maze.openTiles[this.hash];
-            }
         },
         getNeighbors: function() {
             var maze = this.maze;
@@ -145,7 +138,6 @@
         this.ctx.fillStyle = "white";
         this.width = Math.floor(canvas.width / tileSize);
         this.height = Math.floor(canvas.height / tileSize);
-        this.openTiles = {};
         this.tiles = [];
         for (var y = 0; y < this.height; y++) {
             for (var x = 0; x < this.width; x++) {
@@ -154,7 +146,7 @@
             }
         }
         var seed = this.getTile(rand(this.width), rand(this.height));
-        this.openTiles[seed.hash] = seed;
+        this.stack = [seed];
         var mid     = tileSize / 2;
         var strokeOffset = (strokeSize - 1) / 2;
         this.maskRect = {};
@@ -178,26 +170,19 @@
             return this.tiles[this.index(coord)];
         },
         tick: function() {
-            var keys = Object.keys(this.openTiles);
-            var key = keys[rand(keys.length)];
-            var fromTile = this.openTiles[key];
+            var fromTile = this.stack[this.stack.length - 1];
+            if (!fromTile.isOpen()) {
+                this.stack.pop();
+                return;
+            }
             var neighbors = fromTile.emptyNeighbors();
             var toTile = neighbors[rand(neighbors.length)];
-
-            if (!toTile || !fromTile) {
-                debugger;
-            }
-            var tiles = [fromTile, toTile];
-            tiles = tiles.concat(fromTile.getNeighbors());
-            tiles = tiles.concat(toTile.getNeighbors());
             fromTile.set(fromTile.coord.direction(toTile.coord));
             toTile.set(toTile.coord.direction(fromTile.coord));
-            tiles.forEach(function(tile) {
-                tile.check();
-            });
+            this.stack.push(toTile);
         },
         fill: function() {
-            while (Object.keys(this.openTiles).length > 0) { 
+            while (this.stack.length > 0) { 
                 this.tick();
             }
             var self = this;
